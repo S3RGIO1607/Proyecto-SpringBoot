@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/base2.html">
+
+<body>
+
+<section layout:fragment="content">
+
+    <div class="Perfil_Adm">
+        <h1>Registrar Usuario</h1>
+
+        <div class="table-container_TC">
+            <div class="table-responsive">
+
+                <div class="table-header_TC">
+                    <h2>Información del Usuario</h2>
+                </div>
+
+                <!-- FORMULARIO -->
+                <form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post">
+
+                    <div class="mb-3">
+                        <label class="form-label">Documento</label><br>
+                        <input type="text" class="form-control"
+                               th:field="*{numeroDocumento}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nombre</label><br>
+                        <input type="text" class="form-control"
+                               th:field="*{nombre}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Correo</label><br>
+                        <input type="email" class="form-control"
+                               th:field="*{correo}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Contraseña</label><br>
+                        <input type="password" class="form-control"
+                               th:field="*{contrasena}" required><br>
+                        <small>Mínimo 6 caracteres.</small>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Dirección</label><br>
+                        <input type="text" class="form-control"
+                               th:field="*{direccion}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Teléfono</label><br>
+                        <input type="text" class="form-control"
+                               th:field="*{telefono}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Nivel Educativo</label><br>
+                        <select class="form-control"
+                                th:field="*{nivelEducativo}" required>
+                            <option value="">-- Seleccione --</option>
+                            <option value="Bachiller">Bachiller</option>
+                            <option value="Tecnico">Tecnico</option>
+                            <option value="Tecnologo">Tecnologo</option>
+                            <option value="Profesional">Profesional</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Referencia personal</label><br>
+                        <input type="text" class="form-control"
+                               th:field="*{referenciaPersonal}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Teléfono referencia</label><br>
+                        <input type="text" class="form-control"
+                               th:field="*{telefonoReferenciaPersonal}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">EPS</label><br>
+                        <input type="text" class="form-control"
+                               th:field="*{eps}">
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Tipo de usuario</label><br>
+                        <select class="form-control"
+                                th:field="*{tipoUsuario}" required>
+                            <option value="">-- Seleccione --</option>
+                            <option value="Administrador">Administrador</option>
+                            <option value="Sup_bodega">Sup_Bodega</option>
+                            <option value="Gerente">Gerente</option>
+                        </select>
+                    </div>
+
+                    <div class="action-buttons">
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-success">Guardar</button>
+                            <a th:href="@{/usuarios}" class="btn btn-secondary">Volver</a>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>
