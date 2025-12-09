@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base2.html}">
+
+<body>
+
+<section layout:fragment="content">
+
+    <div class="Perfil_Adm">
+        <h1>Gestión de Servicios</h1>
+
+        <div class="action-buttons">
+            <div class="mb-3">
+                <a style="width:100px;"
+                   th:href="@{/servicios/crear}"
+                   class="btn">Registrar</a>
+            </div>
+        </div>
+
+        <div class="table-container_TC">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+
+                    <thead class="table-header_TC">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Descripción</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <tr th:each="servicio : ${servicios}">
+                        <td th:text="${servicio.idServicio}"></td>
+                        <td th:text="${servicio.nombre}"></td>
+                        <td th:text="${servicio.descripcion}"></td>
+                        <td th:text="'$' + ${#numbers.formatDecimal(servicio.precio,1,'POINT',2,'COMMA')}"></td>
+                        <td>
+                            <a th:href="@{/servicios/consultar/{id}(id=${servicio.idServicio})}"
+                               class="btn btn-info">
+                                Consultar
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr th:if="${servicios.size() == 0}">
+                        <td colspan="5" class="text-center">
+                            No hay servicios registrados.
+                        </td>
+                    </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+</body>
+</html>

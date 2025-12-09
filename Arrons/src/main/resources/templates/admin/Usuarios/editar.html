@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/base2.html">
+<body>
+
+<section layout:fragment="content">
+
+<div class="Perfil_Adm">
+    <h1>Editar Usuario</h1>
+
+    <div class="table-container_TC">
+        <div class="table-responsive">
+            <div class="table-header_TC">
+                <h2>Información del Usuario</h2>
+            </div>
+
+            <!-- FORMULARIO -->
+            <form th:action="@{/usuarios/actualizar}" method="post" th:object="${usuario}">
+
+                <input type="hidden" name="_method" value="put">
+
+                <input type="hidden" name="id" th:value="${usuario.id}">
+
+                <!-- Documento -->
+                <div class="mb-3">
+                    <label for="numeroDocumento" class="form-label">Documento</label><br>
+                    <input id="numeroDocumento" type="text" name="numeroDocumento" class="form-control"
+                           th:value="${usuario.numeroDocumento}" required>
+                </div>
+
+                <!-- Nombre -->
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label><br>
+                    <input id="nombre" type="text" name="nombre" class="form-control"
+                           th:value="${usuario.nombre}" required>
+                </div>
+
+                <!-- Correo -->
+                <div class="mb-3">
+                    <label for="correo" class="form-label">Correo</label><br>
+                    <input id="correo" type="email" name="correo" class="form-control"
+                           th:value="${usuario.correo}" required>
+                </div>
+
+                <!-- Dirección -->
+                <div class="mb-3">
+                    <label for="direccion" class="form-label">Dirección</label><br>
+                    <input id="direccion" type="text" name="direccion" class="form-control"
+                           th:value="${usuario.direccion}">
+                </div>
+
+                <!-- Teléfono -->
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">Teléfono</label><br>
+                    <input id="telefono" type="text" name="telefono" class="form-control"
+                           th:value="${usuario.telefono}">
+                </div>
+
+                <!-- Nivel educativo -->
+                <div class="mb-3">
+                    <label for="nivel_educativo" class="form-label">Nivel educativo</label><br>
+                    <input id="nivel_educativo" type="text" name="nivelEducativo" class="form-control"
+                           th:value="${usuario.nivelEducativo}">
+                </div>
+
+                <!-- Referencia personal -->
+                <div class="mb-3">
+                    <label for="referencia_personal" class="form-label">Referencia personal</label><br>
+                    <input id="referencia_personal" type="text" name="referenciaPersonal" class="form-control"
+                           th:value="${usuario.referenciaPersonal}">
+                </div>
+
+                <!-- Teléfono referencia -->
+                <div class="mb-3">
+                    <label for="telefono_referencia_personal" class="form-label">Teléfono referencia</label><br>
+                    <input id="telefono_referencia_personal" type="text" name="telefonoReferenciaPersonal" class="form-control"
+                           th:value="${usuario.telefonoReferenciaPersonal}">
+                </div>
+
+                <!-- EPS -->
+                <div class="mb-3">
+                    <label for="eps" class="form-label">EPS</label><br>
+                    <input id="eps" type="text" name="eps" class="form-control"
+                           th:value="${usuario.eps}">
+                </div>
+
+                <!-- Tipo usuario -->
+                <div class="mb-3">
+                    <label for="tipo_usuario" class="form-label">Tipo de usuario</label><br>
+                    <select id="tipo_usuario" name="tipoUsuario" class="form-control" required>
+                        <option value="">-- Seleccione --</option>
+                        <option value="Administrador" th:selected="${usuario.tipoUsuario == 'Administrador'}">Administrador</option>
+                        <option value="Sup_bodega" th:selected="${usuario.tipoUsuario == 'Sup_bodega'}">Sup_Bodega</option>
+                        <option value="Gerente" th:selected="${usuario.tipoUsuario == 'Gerente'}">Gerente</option>
+                    </select>
+                </div>
+
+                <!-- Estado -->
+                <div class="mb-3">
+                    <label for="estado" class="form-label">Estado</label><br>
+                    <select id="estado" name="estado" class="form-control">
+                        <option value="A" th:selected="${usuario.estado == 'A'}">Activo</option>
+                        <option value="I" th:selected="${usuario.estado == 'I'}">Inactivo</option>
+                    </select>
+                </div>
+
+                <!-- Registrado por -->
+                <div class="mb-3">
+                    <label for="registrado_por" class="form-label">Registrado por (ID usuario)</label><br>
+                    <input id="registrado_por" type="text" name="registradoPor" class="form-control"
+                           th:value="${usuario.registradoPor}">
+                </div>
+
+                <!-- BOTONES -->
+                <div class="action-buttons">
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-success">Actualizar</button>
+                        <a th:href="@{/usuarios}" class="btn btn-secondary">Volver</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+</section>
+
+</body>
+</html>

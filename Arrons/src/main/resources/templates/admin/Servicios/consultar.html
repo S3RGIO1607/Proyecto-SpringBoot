@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/base2.html">
+
+<body>
+
+<section layout:fragment="content">
+
+    <div class="Perfil_Adm">
+        <h1>Detalles del Servicio</h1>
+
+        <div class="table-container_TC">
+            <div class="table-responsive">
+
+                <div class="table-header_TC">
+                    <h2>Información del Servicio</h2>
+                </div>
+
+                <table class="table table-striped table-hover table-bordered">
+                    <tbody>
+
+                    <tr>
+                        <th>ID:</th>
+                        <td th:text="${servicio.idServicio}"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Nombre:</th>
+                        <td th:text="${servicio.nombre}"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Descripción:</th>
+                        <td th:text="${servicio.descripcion}"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Precio:</th>
+                        <td th:text="${#numbers.formatDecimal(servicio.precio,1,'POINT',2,'COMMA')}"></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <!-- BOTONES DE ACCIÓN -->
+        <div class="action-buttons">
+            <div class="mb-3">
+
+                <!-- EDITAR -->
+                <a th:href="@{/servicios/editar/{id}(id=${servicio.idServicio})}"
+                   class="btn btn-warning">
+                    Editar
+                </a>
+
+                <!-- ELIMINAR -->
+                <form th:action="@{/servicios/eliminar/{id}(id=${servicio.idServicio})}"
+                      method="post"
+                      style="display:inline;">
+                    <button type="submit"
+                            class="btn btn-danger"
+                            onclick="return confirm('¿Seguro que quieres eliminar este servicio?')">
+                        Eliminar
+                    </button>
+                </form>
+
+                <!-- VOLVER -->
+                <a th:href="@{/servicios}" class="btn btn-secondary">
+                    Volver
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+</body>
+</html>

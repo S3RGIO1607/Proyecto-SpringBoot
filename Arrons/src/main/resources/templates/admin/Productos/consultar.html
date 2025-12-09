@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base2.html}">
+
+<body>
+
+<section layout:fragment="content">
+
+    <div class="Perfil_Adm">
+        <h1>Detalles del Producto</h1>
+
+        <div class="table-container_TC">
+            <div class="table-responsive">
+
+                <div class="table-header_TC">
+                    <h2>Información del Producto</h2>
+                </div>
+
+                <table class="table table-striped table-hover table-bordered">
+                    <tbody>
+
+                    <tr>
+                        <th>Existencia:</th>
+                        <td th:text="${producto.existencia}"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Descripción:</th>
+                        <td th:text="${producto.descripcion}"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Precio Compra:</th>
+                        <td th:text="'$' + ${#numbers.formatDecimal(producto.precioCompra,1,'POINT',2,'COMMA')}"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Precio Alquiler:</th>
+                        <td th:text="'$' + ${#numbers.formatDecimal(producto.precioAlquiler,1,'POINT',2,'COMMA')}"></td>
+                    </tr>
+
+                    <tr>
+                        <th>Fechas:</th>
+                        <td>
+                            <span th:text="${producto.fechaEntrada}"></span>
+                            -
+                            <span th:text="${producto.fechaSalida}"></span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>Imagen:</th>
+                        <td>
+                            <img th:if="${producto.imagenBase64 != null}"
+                                 th:src="'data:image/jpeg;base64,' + ${producto.imagenBase64}"
+                                 style="max-width:300px;">
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <!-- ✅ BOTONES DE ACCIÓN -->
+        <div class="action-buttons">
+            <div class="mb-3">
+
+                <!-- EDITAR -->
+                <a th:href="@{/productos/editar/{id}(id=${producto.idProducto})}"
+                   class="btn btn-warning">
+                    Editar
+                </a>
+
+                <!-- ELIMINAR -->
+                <form th:action="@{/productos/eliminar/{id}(id=${producto.idProducto})}"
+                      method="get"
+                      style="display:inline;">
+                    <button type="submit"
+                            class="btn btn-danger"
+                            onclick="return confirm('¿Seguro que quieres eliminar este producto?')">
+                        Eliminar
+                    </button>
+                </form>
+
+                <!-- VOLVER -->
+                <a th:href="@{/productos}" class="btn btn-secondary">
+                    Volver
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+</body>
+</html>

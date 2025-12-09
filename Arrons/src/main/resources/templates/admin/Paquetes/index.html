@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base2.html}">
+
+<body>
+
+<section layout:fragment="content">
+
+    <div class="Perfil_Adm">
+        <h1>Gestión de Paquetes</h1>
+
+        <div class="action-buttons">
+            <div class="mb-3">
+                <a style="width: 100px;"
+                   th:href="@{/paquetes/crear}"
+                   class="btn">
+                    Registrar
+                </a>
+            </div>
+        </div>
+
+        <div class="table-container_TC">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+
+                    <thead class="table-header_TC">
+                    <tr>
+                        <th>ID</th>
+                        <th>Tipo Evento</th>
+                        <th>Nombre</th>
+                        <th>Capacidad</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <tr th:each="paquete : ${paquetes}">
+                        <td th:text="${paquete.idPaquete}"></td>
+                        <td th:text="${paquete.tipoEvento}"></td>
+                        <td th:text="${paquete.nombre}"></td>
+                        <td th:text="${paquete.capacidad}"></td>
+                        <td th:text="${paquete.precio}"></td>
+
+                        <td>
+                            <a th:href="@{/paquetes/consultar/{id}(id=${paquete.idPaquete})}"
+                               class="btn">
+                                Consultar
+                            </a>
+                        </td>
+                    </tr>
+
+                    <tr th:if="${paquetes.size() == 0}">
+                        <td colspan="6" class="text-center">
+                            No hay paquetes registrados.
+                        </td>
+                    </tr>
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+</body>
+</html>
