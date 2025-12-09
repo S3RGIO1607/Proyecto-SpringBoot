@@ -17,63 +17,64 @@ public class PaqueteController {
         this.paqueteService = paqueteService;
     }
 
-    // ----------------------------------------
-    // LISTAR
-    // ----------------------------------------
+    // ------------------------------------------------
+    // LISTAR PAQUETES
+    // ------------------------------------------------
     @GetMapping
     public String listarPaquetes(Model model) {
         model.addAttribute("paquetes", paqueteService.listarTodos());
-        return "admin/Paquetes/index";
+        return "admin/paquetes/index";
     }
 
-    // ----------------------------------------
-    // FORMULARIO CREAR
-    // ----------------------------------------
+    // ------------------------------------------------
+    // MOSTRAR FORMULARIO CREAR
+    // ------------------------------------------------
     @GetMapping("/crear")
     public String mostrarFormularioCrear(Model model) {
         model.addAttribute("paquete", new Paquete());
-        return "admin/Paquetes/crear";
+        return "admin/paquetes/crear";
     }
 
-    // ----------------------------------------
-    // GUARDAR
-    // ----------------------------------------
+    // ------------------------------------------------
+    // GUARDAR PAQUETE
+    // ------------------------------------------------
     @PostMapping("/guardar")
-    public String guardarPaquete(@ModelAttribute Paquete paquete) {
+    public String guardarPaquete(@ModelAttribute("paquete") Paquete paquete) {
         paqueteService.guardar(paquete);
         return "redirect:/paquetes";
     }
 
-    // ----------------------------------------
-    // EDITAR
-    // ----------------------------------------
+    // ------------------------------------------------
+    // MOSTRAR FORMULARIO EDITAR
+    // ------------------------------------------------
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
         model.addAttribute("paquete", paqueteService.buscarPorId(id));
-        return "admin/Paquetes/editar";
+        return "admin/paquetes/editar";
     }
 
-    // ----------------------------------------
-    // ACTUALIZAR
-    // ----------------------------------------
+    // ------------------------------------------------
+    // ACTUALIZAR PAQUETE
+    // ------------------------------------------------
     @PostMapping("/actualizar")
-    public String actualizarPaquete(@ModelAttribute Paquete paquete) {
+    public String actualizarPaquete(@ModelAttribute("paquete") Paquete paquete) {
         paqueteService.guardar(paquete);
         return "redirect:/paquetes";
     }
 
-    // ----------------------------------------
-    // ELIMINAR
-    // ----------------------------------------
-    @GetMapping("/eliminar/{id}")
-    public String eliminarPaquete(@PathVariable Long id) {
+    // ------------------------------------------------
+    // ELIMINAR PAQUETE
+    // ------------------------------------------------
+    @PostMapping("/eliminar/{id}")
+    public String eliminarPaquete(@PathVariable("id") Long id) {
         paqueteService.eliminar(id);
         return "redirect:/paquetes";
     }
 
-    // ----------------------------------------
-    // CONSULTAR
-    // ----------------------------------------
+
+    // ------------------------------------------------
+    // CONSULTAR PAQUETE
+    // ------------------------------------------------
     @GetMapping("/consultar/{id}")
     public String consultarPaquete(@PathVariable Long id, Model model) {
 
@@ -84,7 +85,6 @@ public class PaqueteController {
         }
 
         model.addAttribute("paquete", paquete);
-
-        return "admin/Paquete/consultar";
+        return "admin/paquetes/consultar";
     }
 }

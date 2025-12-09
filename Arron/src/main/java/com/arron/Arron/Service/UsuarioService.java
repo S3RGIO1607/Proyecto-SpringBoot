@@ -81,8 +81,4 @@ public class UsuarioService {
         return usuarioRepository.existsByNumeroDocumento(numeroDocumento);
     }
 
-    public Usuario buscarPorCorreo(String correo) {
-        return usuarioRepository.findByCorreo(correo);
-    }
-
 }

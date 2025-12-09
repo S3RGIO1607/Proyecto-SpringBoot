@@ -19,7 +19,7 @@
                    th:href="@{/productos/reporte}"
                    class="btn"
                    target="_blank">Reporte</a>
-            </div>
+            </div>a
         </div>
 
         <div class="table-container_TC">
@@ -44,7 +44,7 @@
 
                         <td>
                             <img th:if="${producto.imagenBase64 != null}"
-                                 th:src="'data:image/jpeg;base64,' + ${producto.imagenBase64}"
+                                 th:src="${producto.imagenBase64}"
                                  alt="img"
                                  style="width:60px;height:60px;object-fit:cover;">
                         </td>

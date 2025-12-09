@@ -9,35 +9,26 @@
 <section layout:fragment="content">
 
     <div class="Perfil_Adm">
-        <h1>Editar Paquete</h1>
+        <h1>Editar Servicio</h1>
 
         <div class="table-container_TC">
             <div class="table-responsive">
+
                 <div class="table-header_TC">
-                    <h2>Información del Paquete</h2>
+                    <h2>Información del Servicio</h2>
                 </div>
 
                 <!-- FORMULARIO -->
-                <form th:action="@{/paquetes/actualizar}"
+                <form th:action="@{/servicios/actualizar}"
                       method="post"
-                      th:object="${paquete}">
+                      th:object="${servicio}">
 
-                    <!-- PARA SIMULAR PUT -->
+                    <!-- SIMULAR PUT -->
                     <input type="hidden" name="_method" value="put">
 
                     <!-- ID -->
-                    <input type="hidden" name="idPaquete" th:value="${paquete.idPaquete}">
-
-                    <!-- Tipo evento -->
-                    <div class="mb-3">
-                        <label for="tipoEvento" class="form-label">Tipo de Evento</label><br>
-                        <input id="tipoEvento"
-                               type="text"
-                               name="tipoEvento"
-                               class="form-control"
-                               th:value="${paquete.tipoEvento}"
-                               required>
-                    </div>
+                    <input type="hidden" name="idServicio"
+                           th:value="${servicio.idServicio}">
 
                     <!-- Nombre -->
                     <div class="mb-3">
@@ -46,7 +37,7 @@
                                type="text"
                                name="nombre"
                                class="form-control"
-                               th:value="${paquete.nombre}"
+                               th:value="${servicio.nombre}"
                                required>
                     </div>
 
@@ -58,25 +49,7 @@
                                   class="form-control"
                                   rows="3"
                                   required
-                                  th:text="${paquete.descripcion}"></textarea>
-                    </div>
-
-                    <!-- Capacidad -->
-                    <div class="mb-3">
-                        <label for="capacidad" class="form-label">Capacidad</label><br>
-                        <select id="capacidad"
-                                name="capacidad"
-                                class="form-control"
-                                required>
-
-                            <option value="">Seleccione...</option>
-                            <option value="20-40"
-                                    th:selected="${paquete.capacidad == '20-40'}">20-40</option>
-                            <option value="40-60"
-                                    th:selected="${paquete.capacidad == '40-60'}">40-60</option>
-                            <option value="60-80"
-                                    th:selected="${paquete.capacidad == '60-80'}">60-80</option>
-                        </select>
+                                  th:text="${servicio.descripcion}"></textarea>
                     </div>
 
                     <!-- Precio -->
@@ -87,15 +60,20 @@
                                step="0.01"
                                name="precio"
                                class="form-control"
-                               th:value="${paquete.precio}"
+                               th:value="${servicio.precio}"
                                required>
                     </div>
 
                     <!-- BOTONES -->
                     <div class="action-buttons">
                         <div class="mb-3">
-                            <button type="submit" class="btn btn-success">Actualizar</button>
-                            <a th:href="@{/paquetes}" class="btn btn-secondary">Volver</a>
+                            <button type="submit" class="btn btn-success">
+                                Actualizar
+                            </button>
+
+                            <a th:href="@{/servicios}" class="btn btn-secondary">
+                                Volver
+                            </a>
                         </div>
                     </div>
 

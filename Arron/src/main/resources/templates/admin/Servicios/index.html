@@ -9,15 +9,13 @@
 <section layout:fragment="content">
 
     <div class="Perfil_Adm">
-        <h1>Gestión de Paquetes</h1>
+        <h1>Gestión de Servicios</h1>
 
         <div class="action-buttons">
             <div class="mb-3">
-                <a style="width: 100px;"
-                   th:href="@{/paquetes/crear}"
-                   class="btn">
-                    Registrar
-                </a>
+                <a style="width:100px;"
+                   th:href="@{/servicios/crear}"
+                   class="btn">Registrar</a>
             </div>
         </div>
 
@@ -28,9 +26,8 @@
                     <thead class="table-header_TC">
                     <tr>
                         <th>ID</th>
-                        <th>Tipo Evento</th>
                         <th>Nombre</th>
-                        <th>Capacidad</th>
+                        <th>Descripción</th>
                         <th>Precio</th>
                         <th>Acciones</th>
                     </tr>
@@ -38,24 +35,22 @@
 
                     <tbody>
 
-                    <tr th:each="paquete : ${paquetes}">
-                        <td th:text="${paquete.idPaquete}"></td>
-                        <td th:text="${paquete.tipoEvento}"></td>
-                        <td th:text="${paquete.nombre}"></td>
-                        <td th:text="${paquete.capacidad}"></td>
-                        <td th:text="${paquete.precio}"></td>
-
+                    <tr th:each="servicio : ${servicios}">
+                        <td th:text="${servicio.idServicio}"></td>
+                        <td th:text="${servicio.nombre}"></td>
+                        <td th:text="${servicio.descripcion}"></td>
+                        <td th:text="'$' + ${#numbers.formatDecimal(servicio.precio,1,'POINT',2,'COMMA')}"></td>
                         <td>
-                            <a th:href="@{/paquetes/consultar/{id}(id=${paquete.idPaquete})}"
-                               class="btn">
+                            <a th:href="@{/servicios/consultar/{id}(id=${servicio.idServicio})}"
+                               class="btn btn-info">
                                 Consultar
                             </a>
                         </td>
                     </tr>
 
-                    <tr th:if="${paquetes.size() == 0}">
-                        <td colspan="6" class="text-center">
-                            No hay paquetes registrados.
+                    <tr th:if="${servicios.size() == 0}">
+                        <td colspan="5" class="text-center">
+                            No hay servicios registrados.
                         </td>
                     </tr>
 
@@ -64,7 +59,6 @@
                 </table>
             </div>
         </div>
-
     </div>
 
 </section>

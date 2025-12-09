@@ -54,7 +54,7 @@
                         <th>Imagen:</th>
                         <td>
                             <img th:if="${producto.imagenBase64 != null}"
-                                 th:src="'data:image/jpeg;base64,' + ${producto.imagenBase64}"
+                                 th:src="${producto.imagenBase64}"
                                  style="max-width:300px;">
                         </td>
                     </tr>

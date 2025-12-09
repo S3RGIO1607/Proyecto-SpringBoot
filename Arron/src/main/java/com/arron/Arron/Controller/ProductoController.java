@@ -1,11 +1,15 @@
 package com.arron.Arron.Controller;
 
 import com.arron.Arron.Model.Producto;
+import com.arron.Arron.Model.Usuario;
 import com.arron.Arron.Service.ProductoService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/productos")
@@ -39,32 +43,39 @@ public class ProductoController {
     // GUARDAR
     // ----------------------------------------
     @PostMapping("/guardar")
-    public String guardarProducto(@ModelAttribute Producto producto) throws Exception {
+    public String guardarProducto(
+            @ModelAttribute Producto producto,
+            @RequestParam("imagenFile") MultipartFile imagenFile,
+            HttpSession session
+    ) {
+        try {
+            if (!imagenFile.isEmpty()) {
+                producto.setImagen(imagenFile.getBytes());
+            }
 
-        MultipartFile archivo = producto.getImagen();
+            // ✅ USUARIO LOGUEADO
+            Usuario usuario = (Usuario) session.getAttribute("usuarioLogueado");
 
-        if (archivo != null && !archivo.isEmpty()) {
-            producto.setImagenBD(archivo.getBytes());
+            producto.setIdUsuario(usuario.getId());
+            producto.setFechaEntrada(LocalDate.now());
+
+            productoService.guardarProducto(producto);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/productos/crear?error";
         }
-
-        productoService.guardarProducto(producto);
 
         return "redirect:/productos";
     }
 
+
     // ----------------------------------------
-    // FORMULARIO EDITAR
+    // EDITAR
     // ----------------------------------------
     @GetMapping("/editar/{id}")
     public String mostrarFormularioEditar(@PathVariable Long id, Model model) {
-
-        Producto producto = productoService.obtenerPorId(id);
-
-        if (producto == null) {
-            return "redirect:/productos?error=no_existe";
-        }
-
-        model.addAttribute("producto", producto);
+        model.addAttribute("producto", productoService.obtenerPorId(id));
         return "admin/productos/editar";
     }
 
@@ -72,30 +83,8 @@ public class ProductoController {
     // ACTUALIZAR
     // ----------------------------------------
     @PostMapping("/actualizar")
-    public String actualizarProducto(@ModelAttribute Producto producto) throws Exception {
-
-        Producto productoBD = productoService.obtenerPorId(producto.getIdProducto());
-
-        if (productoBD == null) {
-            return "redirect:/productos?error=no_existe";
-        }
-
-        MultipartFile archivoNuevo = producto.getImagen();
-
-        if (archivoNuevo != null && !archivoNuevo.isEmpty()) {
-            productoBD.setImagenBD(archivoNuevo.getBytes());
-        }
-
-        productoBD.setNombreProducto(producto.getNombreProducto());
-        productoBD.setDescripcion(producto.getDescripcion());
-        productoBD.setExistencia(producto.getExistencia());
-        productoBD.setPrecioCompra(producto.getPrecioCompra());
-        productoBD.setPrecioAlquiler(producto.getPrecioAlquiler());
-        productoBD.setFechaEntrada(producto.getFechaEntrada());
-        productoBD.setFechaSalida(producto.getFechaSalida());
-
-        productoService.actualizarProducto(productoBD);
-
+    public String actualizarProducto(@ModelAttribute Producto producto) {
+        productoService.actualizarProducto(producto);
         return "redirect:/productos";
     }
 
@@ -121,6 +110,7 @@ public class ProductoController {
         }
 
         model.addAttribute("producto", producto);
+
         return "admin/productos/consultar";
     }
 }

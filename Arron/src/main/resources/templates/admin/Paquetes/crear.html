@@ -19,9 +19,9 @@
                 </div>
 
                 <!-- FORMULARIO -->
-                <form th:action="@{/admin/paquetes/guardar}" th:object="${paquete}" method="post">
+                <form th:action="@{/paquetes/guardar}" th:object="${paquete}" method="post">
 
-                    <div class="mb-3">
+                <div class="mb-3">
                         <label class="form-label">Tipo de Evento</label><br>
                         <input type="text" class="form-control"
                                th:field="*{tipoEvento}" required>
@@ -58,7 +58,7 @@
                     <div class="action-buttons">
                         <div class="mb-3">
                             <button type="submit" class="btn btn-success">Guardar</button>
-                            <a th:href="@{/admin/paquetes}" class="btn btn-secondary">Volver</a>
+                            <a th:href="@{/paquetes}" class="btn btn-secondary">Volver</a>
                         </div>
                     </div>
 

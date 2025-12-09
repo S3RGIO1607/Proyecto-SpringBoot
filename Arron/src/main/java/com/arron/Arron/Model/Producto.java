@@ -1,7 +1,6 @@
 package com.arron.Arron.Model;
 
 import jakarta.persistence.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.Base64;
@@ -36,28 +35,18 @@ public class Producto {
     @Column(name = "fecha_salida")
     private LocalDate fechaSalida;
 
-    // --------------------------
-    // Imagen REAL guardada en BD
-    // --------------------------
     @Lob
-    @Column(name = "imagen", nullable = true)
-    private byte[] imagenBD;
+    @Column(name = "imagen", nullable = false)
+    private byte[] imagen;
 
-    // --------------------------
-    // Imagen recibida desde el form
-    // --------------------------
-    @Transient
-    private MultipartFile imagen;
-
-    // --------------------------
-    // Imagen en Base64 para mostrar
-    // --------------------------
     @Transient
     private String imagenBase64;
 
+    private Long idUsuario;
+
     public Producto() {}
 
-    // Getters y Setters
+    // getters y setters COMPLETOS (importante)
 
     public Long getIdProducto() {
         return idProducto;
@@ -123,25 +112,17 @@ public class Producto {
         this.fechaSalida = fechaSalida;
     }
 
-    public byte[] getImagenBD() {
-        return imagenBD;
-    }
-
-    public void setImagenBD(byte[] imagenBD) {
-        this.imagenBD = imagenBD;
-    }
-
-    public MultipartFile getImagen() {
+    public byte[] getImagen() {
         return imagen;
     }
 
-    public void setImagen(MultipartFile imagen) {
+    public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
 
     public String getImagenBase64() {
-        if (imagenBD != null && imagenBD.length > 0) {
-            return Base64.getEncoder().encodeToString(imagenBD);
+        if (imagen != null && imagen.length > 0) {
+            return Base64.getEncoder().encodeToString(imagen);
         }
         return null;
     }
@@ -150,5 +131,7 @@ public class Producto {
         this.imagenBase64 = imagenBase64;
     }
 
-}
 
+    public void setIdUsuario(Long id) {
+    }
+}
